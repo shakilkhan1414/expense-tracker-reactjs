@@ -1,10 +1,11 @@
 import { ExpenseItem } from "./ExpenseItem";
 import ExpensesFilter from './ExpensesFilter';
 import './Expenses.css';
+import ExpensesChart from './ExpensesChart';
 import { useState } from "react";
 
 export const Expenses = (props) => {
-  const [filteredYear, setFilteredYear] = useState('2020');
+  const [filteredYear, setFilteredYear] = useState('2023');
 
   const filterChangeHandler = selectedYear => {
     setFilteredYear(selectedYear);
@@ -17,7 +18,7 @@ export const Expenses = (props) => {
   return (
     <div>
         <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-
+        <ExpensesChart expenses={filteredExpenses} />
         {filteredExpenses.length === 0 ? (<p className="expenses-list__fallback">No expenses found!</p>) : (
           filteredExpenses.map(expense=>(
             <ExpenseItem

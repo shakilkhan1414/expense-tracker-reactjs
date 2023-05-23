@@ -40,7 +40,7 @@ export const ExpenseForm = (props) => {
             </div>
             <div className="new-expense__control">
                 <label>Amount</label>
-                <input type="text" value={amount} onChange={amountChange} />
+                <input type="number" value={amount} onChange={amountChange} />
             </div>
             <div className="new-expense__control">
                 <label>Date</label>
