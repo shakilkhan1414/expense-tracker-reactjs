@@ -18,6 +18,7 @@
     color: white;
     border-radius: 12px;
     margin-right: 1rem;
+    border: 1px solid #ccc;
   }
   
   .new-expense button:hover,
@@ -36,3 +37,4 @@
   .new-expense button.alternative:active {
     background-color: #ddb3f8;
   }
+
