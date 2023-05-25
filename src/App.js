@@ -1,55 +1,39 @@
 import './App.css';
 import { NewExpense } from './components/NewExpense/NewExpense';
 import { Expenses } from './components/Expenses/Expenses';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 
-const dummy_expenses = [
-  {
-    id: 'e1',
-    title: 'Toilet Paper',
-    amount: 94.12,
-    date: new Date(2023, 7, 14),
-  },
-  { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: 'e3',
-    title: 'Car Insurance',
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: 'e4',
-    title: 'New Desk (Wooden)',
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-  {
-    id: 'e5',
-    title: 'New Keyboard',
-    amount: 150,
-    date: new Date(2023, 3, 17),
-  },
-  {
-    id: 'e6',
-    title: 'Cat Food',
-    amount: 45,
-    date: new Date(2023, 3, 22),
-  },
-  {
-    id: 'e7',
-    title: 'Home Rent',
-    amount: 400,
-    date: new Date(2022, 6, 7),
-  },
-];
 
 function App() {
-  const[expenses,setExpenses]=useState(dummy_expenses)
+  const[expenses,setExpenses]=useState([])
 
+  useEffect(()=>{
+    axios.get('https://expense-tracker-cda0f-default-rtdb.firebaseio.com/expenses.json')
+    .then(res=>{
+      const responseData=res.data
+      const loadExpenses=[]
+      for (let key in responseData) {
+        loadExpenses.push({
+          id: responseData[key].id,
+          title: responseData[key].title,
+          amount: responseData[key].amount,
+          date: new Date(responseData[key].date)
+        })
+      }
+      setExpenses(loadExpenses)
+    })
+  },[])
+  
   const addExpenseHandler=(data)=>{
+    axios.post('https://expense-tracker-cda0f-default-rtdb.firebaseio.com/expenses.json',JSON.stringify(data))
+    .then(()=>{
       setExpenses(prevExpenses=>{
         return [data, ...prevExpenses]
       })
+    })
+    .catch(err=>console.log(err))
+  
   }
 
   return (
