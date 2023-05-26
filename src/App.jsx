@@ -21,7 +21,7 @@ function App() {
           date: new Date(responseData[key].date)
         })
       }
-      setExpenses(loadExpenses)
+      setExpenses(loadExpenses.reverse())
     })
   },[])
   
