@@ -5,6 +5,7 @@ export const ExpenseForm = (props) => {
     const [title,setTitle]=useState('')
     const [amount,setAmount]=useState('')
     const [date,setDate]=useState('')
+    const [formError,setFormError]=useState(false)
 
     const titleChange=(event)=>{
         setTitle(event.target.value)
@@ -18,23 +19,31 @@ export const ExpenseForm = (props) => {
 
     const expenseSubmit=(event)=>{
         event.preventDefault()
-        const expenseData={
-            title: title,
-            amount:amount,
-            date: new Date(date)
+        if(title==='' || amount==='' || date===''){
+            setFormError(true)
         }
-        props.onSaveExpense(expenseData)
-
-        setTitle('')
-        setAmount('')
-        setDate('')
+        else{
+            setFormError(false)
+            const expenseData={
+                title: title,
+                amount:amount,
+                date: new Date(date)
+            }
+            props.onSaveExpense(expenseData)
+    
+            setTitle('')
+            setAmount('')
+            setDate('')
+        }
     
     }
 
   return (
     <form onSubmit={expenseSubmit}>
+        {formError && <p className='error'>*All fields are required!</p>}
+
         <div className="new-expense__controls">
-            <div className="new-expense__control">
+            <div className="new-expense__control w-100">
                 <label>Title</label>
                 <input type="text" value={title} onChange={titleChange} />
             </div>

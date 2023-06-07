@@ -1,14 +1,15 @@
 .new-expense {
     background-color: #322658;
-    padding: 1rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
     margin: 2rem auto;
     width: 50rem;
-    max-width: 95%;
+    max-width: 100%;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   }
-  
+
   .new-expense button {
     font: inherit;
     cursor: pointer;
